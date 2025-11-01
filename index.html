@@ -46,6 +46,18 @@
             border-color: #cbd5e0;
         }
 
+        /* Light mode report box */
+        .light-mode #report-box {
+            background-color: #1f2937; /* Tailwind gray-800 */
+            color: #e2e8f0; /* light gray text */
+        }
+
+        /* Dark mode report box */
+        .dark-mode #report-box {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
         .toggle-switch {
             position: relative;
             width: 60px;
@@ -225,7 +237,7 @@
         </div>
 
         <div id="report-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-            <div class="bg-white p-8 rounded-lg max-w-md w-full">
+            <div id="report-box" class="p-8 rounded-lg max-w-md w-full transition duration-300">
                 <h2 class="text-2xl font-bold mb-4">Stenosis Report</h2>
                 <div id="report-content" class="mb-6"></div>
                 <button id="close-report" class="bg-blue-500 text-white py-2 px-4 rounded">Close</button>
@@ -335,6 +347,14 @@
 
         // Generate Report
         generateReportBtn.addEventListener('click', () => {
+            const isDark = body.classList.contains('dark-mode');
+            if (isDark) {
+                reportModal.classList.add('dark-mode');
+                reportModal.classList.remove('light-mode');
+            } else {
+                reportModal.classList.add('light-mode');
+                reportModal.classList.remove('dark-mode');
+            }
             const nascetStenosis = nascetResult.textContent;
             const ecstStenosis = ecstResult.textContent;
             const ccStenosis = ccResult.textContent;
